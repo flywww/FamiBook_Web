@@ -1,15 +1,15 @@
 
+var models = require('../models');
+
 exports.new = (req, res, next) => {
   console.log('new');
   res.send('New');
 };
 
 exports.create = (req, res, next) => {
-  console.log('create');
-  res.json({
-			status: "success",
-			id: 1
-	});
+  models.DayBook.create({ name: req.body.name }).then(function() {
+    res.redirect('/');
+  });
 };
 
 exports.read = (req, res, next) => {

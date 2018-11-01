@@ -16,5 +16,18 @@
         </li>
       <% }) %>
     </ul>
+
+    <form action="/daybooks" method="post">
+      <fieldset>
+        <legend>Create a new user</legend>
+          <label>
+          name:
+          <input type="string" name="name" />
+          <input type="submit" value="Create daybook" />
+        </label>
+      </fieldset>
+    </form>
+
+
   </body>
 </html>
