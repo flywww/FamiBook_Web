@@ -5,18 +5,40 @@
     <link rel='stylesheet' href='/stylesheets/style.css' />
   </head>
   <body>
+
+    <script>
+      function daybookDelete(id){
+        var xhr = new XMLHttpRequest();
+        xhr.open('DELETE', '/daybooks/'+ id , true);
+        xhr.send();
+
+        xhr.onreadystatechange=function()
+          {
+          if (xhr.readyState===4 && xhr.status==200)
+            {
+                window.location.reload();
+            }
+          }
+      }
+    </script>
+
     <h1><%= title %></h1>
     <p>Welcome to <%= title %></p>
 
-
+    <b>Daybooks</b>
     <ul>
       <% daybooks.forEach(function(daybook) { %>
         <li>
           <%= daybook.name %>
+          <a href="/daybooks/<%=daybook.id%>/edit">Edit</a>
+
+          <input type = "button" name = "Delete" value = "Delete" onclick = "daybookDelete(<%=daybook.id%>);">
+
         </li>
       <% }) %>
     </ul>
 
+    <b>Add Daybooks</b>
     <form action="/daybooks" method="post">
       <fieldset>
         <legend>Create a new user</legend>

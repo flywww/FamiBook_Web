@@ -43,15 +43,12 @@ exports.update = (req, res, next) => {
 };
 
 exports.destroy = (req, res, next) => {
-console.log('!!!!',req.params.id);
-
   models.DayBook
   .findById(req.params.id)
   .then((daybook) => {
     if(!daybook){
       res.status(404).send({message: 'DayBook Not Found',})
     }else{
-
       daybook.destroy({
         where:{id:req.params.id},
         force: true

@@ -7,13 +7,17 @@ var daybook_api = require('../controllers/api/daybook');
 /* GET home page. */
 router.get('/', function(req, res, next) {
   models.DayBook.findAll().then(function(daybooks) {
-    // res.render('index', {
-    //   title: 'daybook test',
-    //   daybooks: daybooks,
-    // });
+    res.render('index', {
+      title: 'daybook test',
+      daybooks: daybooks,
+    });
   });
   //res.render('index', { title: 'Express' });
 });
+
+//users route
+//Web app
+//Api
 
 //daybooks route
 //Web app
@@ -30,6 +34,15 @@ router.get('/api/v1/daybooks', daybook_api.index);
 router.get('/api/v1/daybooks/:id', daybook_api.show);
 router.patch('/api/v1/daybooks/:id', daybook_api.update);
 router.delete('/api/v1/daybooks/:id', daybook_api.destroy);
+
+//Bill route
+//Web app
+//Api
+
+//Category route
+//Web app
+//Api
+
 
 module.exports = router;
 
