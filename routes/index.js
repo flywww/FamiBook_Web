@@ -4,6 +4,10 @@ var models = require('../models');
 var daybook = require('../controllers/daybook');
 var daybook_api = require('../controllers/api/daybook');
 
+var passport = require( 'passport' )
+var bodyParser = require( 'body-parser' );
+var localStrategy = require( 'passport-local' ).Strategy;
+
 /* GET home page. */
 router.get('/', function(req, res, next) {
   models.DayBook.findAll().then(function(daybooks) {
