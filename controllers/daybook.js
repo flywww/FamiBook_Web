@@ -3,31 +3,44 @@ var models = require('../models');
 
 exports.new = (req, res, next) => {
   console.log('new');
-  res.send('New');
+  res.send('New');//render new page
 };
 
 exports.create = (req, res, next) => {
-  models.DayBook.create({ name: req.body.name }).then(function() {
+  models.DayBook
+  .create({ name: req.body.name })
+  .then( daybook => {
     res.redirect('/');
-  });
+  })
+  .catch( error => res.status(400).send(error));
 };
 
-exports.read = (req, res, next) => {
-  console.log('read');
-  res.send('Read');
+exports.index = (req, res, next) => {
+  models.DayBook
+  .findAll()
+  .then( daybooks => {
+      res.render('index', {
+        title: 'daybook name',
+        daybooks: daybooks
+      });
+  })
+  .catch( error => res.status(400).send(error));
 };
 
 exports.show = (req, res, next) => {
-  console.log('show:',req.params.id);
-  res.send('show');
+  models.DayBook
+  .findById(req.params.id)
+  .then( daybook => {
+    res.render('index', {
+      title: 'daybook name',
+      daybooks: [daybook]
+    });
+  })
+  .catch( error => res.status(400).send(error));
 };
 
 exports.edit = (req, res, next) => {
-  console.log('edit:',req.params.id);
-  res.json({
-      status: "success",
-      id: 1
-  });
+
 };
 
 exports.update = (req, res, next) => {
