@@ -3,8 +3,17 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+var passport   = require('passport')
+var session = require('express-session');
+var flash = require('connect-flash');
 
+//routes
 var indexRouter = require('./routes/index');
+var daybookRouter = require('./routes/daybook');
+var userRouter = require('./routes/user');
+var daybookApiV1Router = require('./routes/api/v1/daybook');
+var userApiV1Router = require('./routes/api/v1/user');
+
 var usersRouter = require('./routes/users');
 
 var app = express();
@@ -19,8 +28,29 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+//load passport setting
+require('./config/passport_config.js')(passport);
+app.use(session({
+  secret: 'famibooksecrete',
+  resave: false,
+  saveUninitialized: false
+}));
+app.use(passport.initialize());
+app.use(passport.session());
+app.use(flash());
+
+//Routes
+//Web
 app.use('/', indexRouter);
+app.use('/daybooks', daybookRouter);
+app.use('/users', userRouter);
+// app.use('/api/v1/daybooks', daybookApiV1Router);
+// app.use('/api/v1/users', userApiV1Router);
+
+//API
+
 app.use('/users', usersRouter);
+//app.use('/routes/authenticate',authenticate);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

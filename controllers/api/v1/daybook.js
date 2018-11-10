@@ -1,4 +1,4 @@
-var models = require('../../models');
+var models = require('../../../models');
 
 exports.create = (req, res, next) => {
   models.DayBook
