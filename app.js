@@ -14,7 +14,6 @@ var userRouter = require('./routes/user');
 var daybookApiV1Router = require('./routes/api/v1/daybook');
 var userApiV1Router = require('./routes/api/v1/user');
 
-var usersRouter = require('./routes/users');
 
 var app = express();
 
@@ -29,7 +28,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 //load passport setting
-require('./config/passport_config.js')(passport);
+require('./middlewares/passport-local.js')(passport);
 app.use(session({
   secret: 'famibooksecrete',
   resave: false,
@@ -44,12 +43,11 @@ app.use(flash());
 app.use('/', indexRouter);
 app.use('/daybooks', daybookRouter);
 app.use('/users', userRouter);
-// app.use('/api/v1/daybooks', daybookApiV1Router);
-// app.use('/api/v1/users', userApiV1Router);
+app.use('/api/v1/daybooks', daybookApiV1Router);
+app.use('/api/v1/users', userApiV1Router);
 
 //API
 
-app.use('/users', usersRouter);
 //app.use('/routes/authenticate',authenticate);
 
 // catch 404 and forward to error handler

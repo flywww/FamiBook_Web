@@ -20,16 +20,8 @@ router.get('/', function(req, res, next) {
   //res.render('index', { title: 'Express' });
 });
 
-//users route
+//authenticate
 
-
-//Bill route
-//Web app
-//Api
-
-//Category route
-//Web app
-//Api
 
 
 module.exports = router;
