@@ -3,32 +3,21 @@ var passport = require('passport');
 var express = require('express');
 var router = express.Router();
 
+var responseBuilder = require('../../../helpers/http_response_helper');
+
 
 //authenticate route
 function authenticated (req, res, next) {
   if (req.isAuthenticated()) {
     return next()
   }
-  res.redirect('/users/signin');
+  res.status(200).send(responseBuilder(200,'unauthorized',null))
 }
 
 //Web app
-router.post('/signin', passport.authenticate('signin',
-  function (err, user, info) {
-
-  }
-));
-
-router.post('/signup', passport.authenticate('signup',
-  function (err, user, info) {
-
-  }
-));
-
-router.get('/signout', function (req, res, next) {
-  req.logout()
-  res.redirect('/users/signin')
-});
+router.post('/signin',user.signin);
+router.post('/signup',user.signup);
+router.get('/signout',user.signout);
 
 router.get('/home', authenticated, function (req, res, next) {
   res.render('home', { user: req.user })

@@ -28,7 +28,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 //load passport setting
-require('./middlewares/passport-local.js')(passport);
+require('./middlewares/passport_local.js')(passport);
 app.use(session({
   secret: 'famibooksecrete',
   resave: false,
