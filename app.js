@@ -4,8 +4,20 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var passport   = require('passport')
-var session = require('express-session');
 var flash = require('connect-flash');
+
+//session
+var session = require('express-session');
+var MySQLStore = require('express-mysql-session')(session);
+var dbconfig = require( "./config/config.json" )[process.env.NODE_ENV];
+var sessionStore = new MySQLStore(options);
+var options = {
+    host: dbconfig.host,
+    port: dbconfig.port,
+    user: dbconfig.username,
+    password: dbconfig.password,
+    database: dbconfig.database
+};
 
 //routes
 var indexRouter = require('./routes/index');
@@ -14,7 +26,7 @@ var userRouter = require('./routes/user');
 var daybookApiV1Router = require('./routes/api/v1/daybook');
 var userApiV1Router = require('./routes/api/v1/user');
 
-
+//app
 var app = express();
 
 // view engine setup
@@ -30,7 +42,9 @@ app.use(express.static(path.join(__dirname, 'public')));
 //load passport setting
 require('./middlewares/passport_local.js')(passport);
 app.use(session({
+  key: 'famibookkey',
   secret: 'famibooksecrete',
+  store: sessionStore,
   resave: false,
   saveUninitialized: false
 }));
@@ -47,8 +61,6 @@ app.use('/api/v1/daybooks', daybookApiV1Router);
 app.use('/api/v1/users', userApiV1Router);
 
 //API
-
-//app.use('/routes/authenticate',authenticate);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
