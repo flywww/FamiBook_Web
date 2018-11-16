@@ -28,11 +28,11 @@ module.exports = function(controller,actions){
     if(actions.find(element => element == 'edit')){
       router.get('/:id/edit', controller.edit);
     }
-    if(actions.find(element => element == ':id')){
+    if(actions.find(element => element == 'update')){
       router.patch('/:id', controller.update);
     }
-    if(actions.find(element => element == 'delete')){
-      router.delete('/:id', controller.delete);
+    if(actions.find(element => element == 'destroy')){
+      router.delete('/:id', controller.destroy);
     }
   }
 

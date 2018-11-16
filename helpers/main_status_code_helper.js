@@ -22,5 +22,6 @@ exports.error = {
   accountCreateFaild                  :{ code:41012 , message:'account create faild'},
   accountSignOutFaild                 :{ code:41012 , message:'account signout faild'},
   accountPasswordFormatIsNotCorrect   :{ code:41013 , message:'account password formate is not correct'},
+  resourcesNotFound                        :{ code:41014 , message:'resources not found'},
 }
 exports.succeed = { code:200, message: 'succeed'}
