@@ -9,7 +9,17 @@ module.exports = (sequelize, DataTypes) => {
     }
   }, {});
   DayBook.associate = function(models) {
-    // associations can be defined here
+
+    DayBook.hasMany(models.User, {
+      foreignKey: 'daybookId',
+      onDelete: 'SET NULL'
+    });
+
+    DayBook.hasMany(models.Bill, {
+      foreignKey: 'daybookId',
+      onDelete: 'SET NULL'
+    });
+
   };
   return DayBook;
 };

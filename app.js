@@ -10,7 +10,6 @@ var flash = require('connect-flash');
 var session = require('express-session');
 var MySQLStore = require('express-mysql-session')(session);
 var dbconfig = require( "./config/config.json" )[process.env.NODE_ENV];
-var sessionStore = new MySQLStore(options);
 var options = {
     host: dbconfig.host,
     port: dbconfig.port,
@@ -18,6 +17,7 @@ var options = {
     password: dbconfig.password,
     database: dbconfig.database
 };
+var sessionStore = new MySQLStore(options);
 
 //routes
 var indexRouter = require('./routes/index');

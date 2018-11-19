@@ -2,8 +2,6 @@
 
 module.exports = {
   up: (queryInterface, Sequelize) => {
-
-
     queryInterface.renameColumn('Users', 'account', 'username');
   },
 
