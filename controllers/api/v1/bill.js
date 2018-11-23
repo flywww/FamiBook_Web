@@ -22,12 +22,12 @@ exports.create = (req, res, next) => {
     category: req.body.category
    })
   .then( bill => {
-    res.status(status.OK)
-       .send(responseBuilder(mainStatus.succeed.code,mainStatus.succeed.message,bill))
+    return res.status(status.OK)
+              .send(responseBuilder(mainStatus.succeed.code,mainStatus.succeed.message,bill))
   })
   .catch( error => {
-    res.status(status.BAD_REQUEST)
-       .send(responseBuilder(mainStatus.error.systemError.code,error.errors[0].message,{}))
+    return res.status(status.BAD_REQUEST)
+              .send(responseBuilder(mainStatus.error.systemError.code,error.errors[0].message,{}))
   });
 };
 
@@ -48,12 +48,12 @@ console.log(attribute);
   models.Bill
   .findAll(attribute)
   .then( bills => {
-    res.status(status.OK)
-       .send(responseBuilder(mainStatus.succeed.code,mainStatus.succeed.message,bills))
+    return res.status(status.OK)
+              .send(responseBuilder(mainStatus.succeed.code,mainStatus.succeed.message,bills))
      })
   .catch( error => {
-    res.status(status.BAD_REQUEST)
-       .send(responseBuilder(mainStatus.error.systemError.code,error.errors[0].message,{}));
+    return res.status(status.BAD_REQUEST)
+              .send(responseBuilder(mainStatus.error.systemError.code,error.errors[0].message,{}));
      });
 };
 
@@ -67,19 +67,19 @@ exports.show = (req, res, next) => {
   .findByPk(req.params.id)
   .then( bill => {
     if(!bill){
-      res.status(status.NOT_FOUND)
-         .send(responseBuilder(mainStatus.error.resourcesNotFound.code,mainStatus.error.resourcesNotFound.message,{}))
+      return res.status(status.NOT_FOUND)
+                .send(responseBuilder(mainStatus.error.resourcesNotFound.code,mainStatus.error.resourcesNotFound.message,{}))
     }else if(bill.daybookId != req.user.daybookId){
-      res.status(status.BAD_REQUEST)
-         .send(responseBuilder(mainStatus.error.unauthorized.code,mainStatus.error.unauthorized.message,null));
+      return res.status(status.BAD_REQUEST)
+                .send(responseBuilder(mainStatus.error.unauthorized.code,mainStatus.error.unauthorized.message,null));
     }else{
-        res.status(status.OK)
-           .send(responseBuilder(mainStatus.succeed.code,mainStatus.succeed.message,bill))
+        return res.status(status.OK)
+                  .send(responseBuilder(mainStatus.succeed.code,mainStatus.succeed.message,bill))
     }
   })
   .catch( error => {
-    res.status(status.BAD_REQUEST)
-       .send(responseBuilder(mainStatus.error.systemError.code,error.errors[0].message,{}))
+    return res.status(status.BAD_REQUEST)
+              .send(responseBuilder(mainStatus.error.systemError.code,error.errors[0].message,{}))
   });
 
 };
@@ -94,11 +94,11 @@ exports.update = (req, res, next) => {
   .findByPk(req.params.id)
   .then( bill => {
     if(!bill){
-      res.status(status.NOT_FOUND)
-         .send(responseBuilder(mainStatus.error.resourcesNotFound.code,mainStatus.error.resourcesNotFound.message,{}))
+      return res.status(status.NOT_FOUND)
+                .send(responseBuilder(mainStatus.error.resourcesNotFound.code,mainStatus.error.resourcesNotFound.message,{}))
     }else if(bill.daybookId != req.user.daybookId){
-      res.status(status.BAD_REQUEST)
-         .send(responseBuilder(mainStatus.error.unauthorized.code,mainStatus.error.unauthorized.message,null));
+      return res.status(status.BAD_REQUEST)
+                .send(responseBuilder(mainStatus.error.unauthorized.code,mainStatus.error.unauthorized.message,null));
     }else{
       bill.name = req.body.name;
       bill.type = req.body.type;
@@ -109,18 +109,18 @@ exports.update = (req, res, next) => {
       bill.category = req.body.category;
       bill.save()
       .then(bill => {
-        res.status(status.OK)
-           .send(responseBuilder(mainStatus.succeed.code,mainStatus.succeed.message,bill))
+        return res.status(status.OK)
+                  .send(responseBuilder(mainStatus.succeed.code,mainStatus.succeed.message,bill))
       })
       .catch(error => {
-        res.status(status.BAD_REQUEST)
-           .send(responseBuilder(mainStatus.error.systemError.code,error.errors[0].message,{}))
+        return res.status(status.BAD_REQUEST)
+                  .send(responseBuilder(mainStatus.error.systemError.code,error.errors[0].message,{}))
       });
     }
 })
   .catch( error => {
-    res.status(status.BAD_REQUEST)
-       .send(responseBuilder(mainStatus.error.systemError.code,error.errors[0].message,{}))
+    return res.status(status.BAD_REQUEST)
+              .send(responseBuilder(mainStatus.error.systemError.code,error.errors[0].message,{}))
      });
 };
 
@@ -134,26 +134,26 @@ exports.destroy = (req, res, next) => {
   .findByPk(req.params.id)
   .then((bill) => {
     if(!bill){
-      res.status(status.NOT_FOUND)
-         .send(responseBuilder(mainStatus.error.resourcesNotFound.code,mainStatus.error.resourcesNotFound.message,{}))
+      return res.status(status.NOT_FOUND)
+                .send(responseBuilder(mainStatus.error.resourcesNotFound.code,mainStatus.error.resourcesNotFound.message,{}))
     }else if(bill.daybookId != req.user.daybookId){
-      res.status(status.BAD_REQUEST)
-         .send(responseBuilder(mainStatus.error.unauthorized.code,mainStatus.error.unauthorized.message,null));
+      return res.status(status.BAD_REQUEST)
+                .send(responseBuilder(mainStatus.error.unauthorized.code,mainStatus.error.unauthorized.message,null));
     }else{
       bill.destroy({
         where:{id:req.params.id},
         force: true
       }).then( () => {
-        res.status(status.OK)
-           .send(responseBuilder(mainStatus.succeed.code,mainStatus.succeed.message,{}));
+        return res.status(status.OK)
+                  .send(responseBuilder(mainStatus.succeed.code,mainStatus.succeed.message,{}));
       }).catch( error => {
-        res.status(status.BAD_REQUEST)
-           .send(responseBuilder(mainStatus.error.systemError.code,error.errors[0].message,{}))
+        return res.status(status.BAD_REQUEST)
+                  .send(responseBuilder(mainStatus.error.systemError.code,error.errors[0].message,{}))
       });
     }
   })
   .catch( error => {
-    res.status(status.BAD_REQUEST)
-       .send(responseBuilder(mainStatus.error.systemError.code,error.errors[0].message,{}))
+    return res.status(status.BAD_REQUEST)
+              .send(responseBuilder(mainStatus.error.systemError.code,error.errors[0].message,{}))
   });
 };

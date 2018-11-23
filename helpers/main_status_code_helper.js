@@ -22,6 +22,7 @@ exports.error = {
   accountCreateFaild                  :{ code:41012 , message:'account create faild'},
   accountSignOutFaild                 :{ code:41012 , message:'account signout faild'},
   accountPasswordFormatIsNotCorrect   :{ code:41013 , message:'account password formate is not correct'},
-  resourcesNotFound                        :{ code:41014 , message:'resources not found'},
+  resourcesNotFound                   :{ code:41014 , message:'resources not found'},
+  daybookHasAlreadyExist              :{ code:41015 , message:'daybook Has already exist'},
 }
 exports.succeed = { code:200, message: 'succeed'}
