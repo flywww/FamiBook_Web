@@ -43,9 +43,9 @@ exports.signup = (req, res, next) => {
       case mainStatus.error.accountEmailFormatIsNotCorrect:
         return res.status(status.BAD_REQUEST).send(responseBuilder(info.code,info.message,{}));
         break;
-        case mainStatus.error.accountPasswordFormatIsNotCorrect:
-          return res.status(status.BAD_REQUEST).send(responseBuilder(info.code,info.message,{}));
-          break;
+      case mainStatus.error.accountPasswordFormatIsNotCorrect:
+        return res.status(status.BAD_REQUEST).send(responseBuilder(info.code,info.message,{}));
+        break;
     }
   }) (req, res, next);
 };
@@ -74,7 +74,7 @@ exports.index = (req, res, next) => {
 };
 
 exports.show = (req, res, next) => {
-
+  //show user infoac
 };
 
 exports.edit = (req, res, next) => {

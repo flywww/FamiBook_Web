@@ -25,6 +25,8 @@ var daybookRouter = require('./routes/daybook');
 var userRouter = require('./routes/user');
 var daybookApiV1Router = require('./routes/api/v1/daybook');
 var userApiV1Router = require('./routes/api/v1/user');
+var billApiV1Router = require('./routes/api/v1/bill');
+var categoryApiV1Router = require('./routes/api/v1/category');
 
 //app
 var app = express();
@@ -55,10 +57,14 @@ app.use(flash());
 //Routes
 //Web
 app.use('/', indexRouter);
+// app.use('/bills', billRouter);
+// app.use('/categorys', categoryRouter);
 app.use('/daybooks', daybookRouter);
 app.use('/users', userRouter);
 app.use('/api/v1/daybooks', daybookApiV1Router);
 app.use('/api/v1/users', userApiV1Router);
+app.use('/api/v1/bills', billApiV1Router);
+app.use('/api/v1/categories', categoryApiV1Router);
 
 //API
 

@@ -25,7 +25,7 @@ module.exports = function(passport){
   },
     function (req, account, password, done) {
       models.User
-      .findOne({'where':{ 'account': account }})
+      .findOne({where:{ account: account }})
       .then( user => {
         if(!user){
           console.log('can\'t find the user');
@@ -54,7 +54,7 @@ module.exports = function(passport){
     function (req, account, password, done) {
       var findOrCreateUser = function () {
         models.User
-        .findOne({'where':{ 'account': account }})
+        .findOne({where:{ account: account }})
         .then( user => {
           if(!user){
             //New user
